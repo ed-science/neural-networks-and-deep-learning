@@ -78,26 +78,28 @@ def training(training_data, net, epochs, filename):
     f.close()
 
 def plot_training(epochs, filename, num_layers):
-    f = open(filename, "r")
-    norms = json.load(f)
-    f.close()
+    with open(filename, "r") as f:
+        norms = json.load(f)
     fig = plt.figure()
     ax = fig.add_subplot(111)
     colors = ["#2A6EA6", "#FFA933", "#FF5555", "#55FF55", "#5555FF"]
     for j in range(num_layers):
-        ax.plot(np.arange(epochs), 
-                [n[j] for n in norms], 
-                color=colors[j],
-                label="Hidden layer %s" % (j+1,))
+        ax.plot(
+            np.arange(epochs),
+            [n[j] for n in norms],
+            color=colors[j],
+            label=f"Hidden layer {j + 1}",
+        )
+
     ax.set_xlim([0, epochs])
     ax.grid(True)
     ax.set_xlabel('Number of epochs of training')
-    ax.set_title('Speed of learning: %s hidden layers' % num_layers)
+    ax.set_title(f'Speed of learning: {num_layers} hidden layers')
     ax.set_yscale('log')
     plt.legend(loc="upper right")
-    fig_filename = "training_speed_%s_layers.png" % num_layers
+    fig_filename = f"training_speed_{num_layers}_layers.png"
     plt.savefig(fig_filename)
-    shutil.copy(fig_filename, "../../images/"+fig_filename)
+    shutil.copy(fig_filename, f"../../images/{fig_filename}")
     plt.show()
 
 def get_average_gradient(net, training_data):
@@ -113,7 +115,7 @@ def list_sum(l):
     return reduce(zip_sum, l)
 
 def list_norm(l):
-    return math.sqrt(sum([x*x for x in l]))
+    return math.sqrt(sum(x*x for x in l))
 
 if __name__ == "__main__":
     main()
