@@ -218,9 +218,8 @@ def plot_rotated_image(image):
 def load_data():
     """ Return the MNIST data as a tuple containing the training data,
     the validation data, and the test data."""
-    f = open('../data/mnist.pkl', 'rb')
-    training_set, validation_set, test_set = cPickle.load(f)
-    f.close()
+    with open('../data/mnist.pkl', 'rb') as f:
+        training_set, validation_set, test_set = cPickle.load(f)
     return (training_set, validation_set, test_set)
 
 def get_images(training_set):

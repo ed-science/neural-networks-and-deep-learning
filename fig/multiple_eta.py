@@ -53,9 +53,8 @@ def run_networks():
     f.close()
 
 def make_plot():
-    f = open("multiple_eta.json", "r")
-    results = json.load(f)
-    f.close()
+    with open("multiple_eta.json", "r") as f:
+        results = json.load(f)
     fig = plt.figure()
     ax = fig.add_subplot(111)
     for eta, result, color in zip(LEARNING_RATES, results, COLORS):

@@ -11,6 +11,7 @@ systems.
 
 """
 
+
 from __future__ import print_function
 
 #### Libraries
@@ -33,11 +34,9 @@ else:
     training_data, validation_data, test_data = cPickle.load(f)
     f.close()
     expanded_training_pairs = []
-    j = 0 # counter
-    for x, y in zip(training_data[0], training_data[1]):
+    for j, (x, y) in enumerate(zip(training_data[0], training_data[1]), start=1):
         expanded_training_pairs.append((x, y))
         image = np.reshape(x, (-1, 28))
-        j += 1
         if j % 1000 == 0: print("Expanding image number", j)
         # iterate over data telling us the details of how to
         # do the displacement

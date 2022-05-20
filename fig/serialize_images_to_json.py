@@ -39,8 +39,7 @@ data = {"training": [
      "y": validation_data[j][1]}
             for j in xrange(NVD)]}
 
-f = open("data_1000.json", "w")
-json.dump(data, f)
-f.close()
+with open("data_1000.json", "w") as f:
+    json.dump(data, f)
 
 

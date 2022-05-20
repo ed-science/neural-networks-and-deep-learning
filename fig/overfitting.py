@@ -62,9 +62,8 @@ def run_network(filename, num_epochs, training_set_size=1000, lmbda=0.0):
                   monitor_evaluation_accuracy=True, 
                   monitor_training_cost=True, 
                   monitor_training_accuracy=True)
-    f = open(filename, "w")
-    json.dump([test_cost, test_accuracy, training_cost, training_accuracy], f)
-    f.close()
+    with open(filename, "w") as f:
+        json.dump([test_cost, test_accuracy, training_cost, training_accuracy], f)
 
 def make_plots(filename, num_epochs, 
                training_cost_xmin=200, 
@@ -74,10 +73,9 @@ def make_plots(filename, num_epochs,
                training_set_size=1000):
     """Load the results from ``filename``, and generate the corresponding
     plots. """
-    f = open(filename, "r")
-    test_cost, test_accuracy, training_cost, training_accuracy \
-        = json.load(f)
-    f.close()
+    with open(filename, "r") as f:
+        test_cost, test_accuracy, training_cost, training_accuracy \
+            = json.load(f)
     plot_training_cost(training_cost, num_epochs, training_cost_xmin)
     plot_test_accuracy(test_accuracy, num_epochs, test_accuracy_xmin)
     plot_test_cost(test_cost, num_epochs, test_cost_xmin)

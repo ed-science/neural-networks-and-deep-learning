@@ -62,9 +62,8 @@ def make_plot(filename):
     corresponding plot.
 
     """
-    f = open(filename, "r")
-    results = json.load(f)
-    f.close()
+    with open(filename, "r") as f:
+        results = json.load(f)
     default_vc, default_va, default_tc, default_ta = results[
         "default_weight_initialization"]
     large_vc, large_va, large_tc, large_ta = results[
